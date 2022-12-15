@@ -72,7 +72,7 @@ def main():
             issue_body = "- Date: {2}\n- Commit: https://github.com/qt/{0}/commit/{1}".format(reponame, commithash, fromdatestr)
             print(issue_title)
             if not args.dry_run:
-                sh.gh.issue.create(repo="peeweep-test/dtkcommon", title=issue_title, body=issue_body)
+                sh.gh.issue.create(title=issue_title, body=issue_body)
 
 
 if __name__ == "__main__":

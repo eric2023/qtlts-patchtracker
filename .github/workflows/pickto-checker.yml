@@ -22,9 +22,13 @@ jobs:
         run: pip install sh
       - name: Main Step (scheduled)
         if: ${{ github.event_name == 'schedule' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           python task.py -i ${{ inputs.in-date }}
       - name: Main Step (workflow_dispatch)
         if: ${{ github.event_name == 'workflow_dispatch' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           python task.py
