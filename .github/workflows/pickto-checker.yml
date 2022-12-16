@@ -8,6 +8,9 @@ on:
         description: 'Check for which date?'     
         required: true
         default: '2022-12-15'
+      dry-run:
+        description: 'Avoid actually create any issue'
+        type: boolean
 
 jobs:
   team-mgr:
@@ -27,9 +30,15 @@ jobs:
         run: |
           python task.py
       - name: Main Step (workflow_dispatch)
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && !inputs.dry-run }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           python task.py -i ${{ inputs.in-date }}
+      - name: Main Step (workflow_dispatch, dry-run)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python task.py -i ${{ inputs.in-date }} -d
 
