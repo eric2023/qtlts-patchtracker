@@ -25,10 +25,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          python task.py -i ${{ inputs.in-date }}
+          python task.py
       - name: Main Step (workflow_dispatch)
         if: ${{ github.event_name == 'workflow_dispatch' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          python task.py
+          python task.py -i ${{ inputs.in-date }}
+
